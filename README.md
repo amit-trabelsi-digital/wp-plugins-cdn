@@ -1,6 +1,11 @@
-# WordPress Plugins Distribution Server
+# Amit Trabelsi - WordPress Plugins Distribution Server
 
-שרת הפצה מרכזי לפלאגיני WordPress של AT.
+שרת הפצה מרכזי פרטי לפלאגיני WordPress.
+
+**Owner:** Amit Trabelsi
+**Contact:** amit@trabel.si
+**Website:** https://amit-trabelsi.co.il
+**CDN URL:** https://updates.amiteam.io
 
 ## מבנה תיקיות
 

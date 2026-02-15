@@ -1,7 +1,7 @@
 {
   "name": "wp-plugins-cdn",
   "version": "1.0.0",
-  "description": "WordPress Plugins Distribution Server",
+  "description": "Amit Trabelsi - WordPress Plugins Distribution Server",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

@@ -15,7 +15,11 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.json({
     status: 'ok',
-    message: 'WordPress Plugins CDN',
+    name: 'Amit Trabelsi - WordPress Plugins Distribution Server',
+    description: 'Private CDN for WordPress plugin updates',
+    owner: 'Amit Trabelsi',
+    contact: 'amit@trabel.si',
+    website: 'https://amit-trabelsi.co.il',
     endpoints: {
       health: '/health',
       plugins: '/plugins',

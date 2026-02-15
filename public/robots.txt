@@ -1,0 +1,30 @@
+# WordPress Plugins CDN - Private Distribution Server
+# Owner: Amit Trabelsi (amit@trabel.si)
+
+User-agent: *
+Disallow: /
+
+# Block all crawlers and bots
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: Slurp
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: ia_archiver
+Disallow: /
+
+User-agent: archive.org_bot
+Disallow: /
