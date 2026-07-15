@@ -1,69 +1,150 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs/promises');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const PLUGINS_ROOT = path.join(__dirname, 'public');
 
-// Enable CORS for all origins
+app.disable('x-powered-by');
 app.use(cors());
 
-// Serve static files from the 'public' directory
-app.use(express.static('public'));
+function isValidSlug(slug) {
+  return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug);
+}
 
-// Root endpoint
-app.get('/', (req, res) => {
+function pluginDirectory(slug) {
+  return path.join(PLUGINS_ROOT, slug);
+}
+
+async function getPluginManifest(slug) {
+  if (!isValidSlug(slug)) {
+    return null;
+  }
+
+  try {
+    const manifestPath = path.join(pluginDirectory(slug), 'plugin-info.json');
+    const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+    return manifest;
+  } catch (error) {
+    return null;
+  }
+}
+
+function normalizeManifest(manifest) {
+  if (manifest && manifest.version) {
+    return manifest;
+  }
+
+  if (!manifest || typeof manifest !== 'object') {
+    return null;
+  }
+
+  const pluginFile = Object.keys(manifest).find((key) => key.endsWith('.php'));
+  if (!pluginFile || !manifest[pluginFile] || typeof manifest[pluginFile] !== 'object') {
+    return null;
+  }
+
+  return { ...manifest[pluginFile], plugin_file: pluginFile };
+}
+
+async function sendPluginManifest(req, res) {
+  const manifest = await getPluginManifest(req.params.plugin);
+  if (!manifest) {
+    return res.status(404).json({ error: 'Plugin manifest not found' });
+  }
+
+  res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+  return res.json(manifest);
+}
+
+async function listPlugins() {
+  const entries = await fs.readdir(PLUGINS_ROOT, { withFileTypes: true });
+  const plugins = await Promise.all(entries
+    .filter((entry) => entry.isDirectory() && isValidSlug(entry.name))
+    .map(async (entry) => {
+      const manifest = normalizeManifest(await getPluginManifest(entry.name));
+      if (!manifest) {
+        return null;
+      }
+
+      return {
+        slug: entry.name,
+        version: manifest.version || null,
+        url: `/${entry.name}`,
+      };
+    }));
+
+  return plugins.filter(Boolean);
+}
+
+app.get('/', async (req, res) => {
+  const plugins = await listPlugins();
   res.json({
     status: 'ok',
     name: 'Amit Trabelsi - WordPress Plugins Distribution Server',
     description: 'Private CDN for WordPress plugin updates',
-    owner: 'Amit Trabelsi',
-    contact: 'amit@trabel.si',
-    website: 'https://amit-trabelsi.co.il',
     endpoints: {
       health: '/health',
       plugins: '/plugins',
-      pluginInfo: '/:plugin/plugin-info.json'
-    }
+      pluginInfo: '/:plugin/plugin-info.json',
+      download: '/:plugin/download',
+    },
+    plugins,
   });
 });
 
-// JSON endpoint for plugin info (support both formats)
-app.get('/:plugin/info.json', (req, res) => {
-  const pluginName = req.params.plugin;
-  res.sendFile(path.join(__dirname, 'public', pluginName, 'plugin-info.json'));
+app.get('/health', async (req, res) => {
+  try {
+    const plugins = await listPlugins();
+    res.json({ status: 'ok', plugins: plugins.length });
+  } catch (error) {
+    res.status(503).json({ status: 'error', message: 'Plugin storage is unavailable' });
+  }
 });
 
-app.get('/:plugin/plugin-info.json', (req, res) => {
-  const pluginName = req.params.plugin;
-  res.sendFile(path.join(__dirname, 'public', pluginName, 'plugin-info.json'));
+app.get('/plugins', async (req, res, next) => {
+  try {
+    res.json({ plugins: await listPlugins() });
+  } catch (error) {
+    next(error);
+  }
 });
 
-// ZIP download endpoint
-app.get('/:plugin/download', (req, res) => {
-  const pluginName = req.params.plugin;
-  res.sendFile(path.join(__dirname, 'public', pluginName, `${pluginName}.zip`));
+app.get('/:plugin/info.json', sendPluginManifest);
+app.get('/:plugin/plugin-info.json', sendPluginManifest);
+
+app.get('/:plugin/download', async (req, res) => {
+  const slug = req.params.plugin;
+  const manifest = await getPluginManifest(slug);
+  const zipPath = path.join(pluginDirectory(slug), `${slug}.zip`);
+
+  if (!manifest || !isValidSlug(slug)) {
+    return res.status(404).json({ error: 'Plugin package not found' });
+  }
+
+  try {
+    await fs.access(zipPath);
+    res.set('Cache-Control', 'public, max-age=86400, immutable');
+    return res.download(zipPath, `${slug}.zip`);
+  } catch (error) {
+    return res.status(404).json({ error: 'Plugin package not found' });
+  }
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', message: 'WordPress Plugins CDN is running' });
+app.use(express.static(PLUGINS_ROOT, {
+  index: false,
+  maxAge: '5m',
+}));
+
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not found' });
 });
 
-// List all plugins
-app.get('/plugins', (req, res) => {
-  res.json({
-    plugins: [
-      {
-        name: 'at-agency-sites-manager',
-        url: `${req.protocol}://${req.get('host')}/at-agency-sites-manager`
-      },
-      {
-        name: 'wordpress-ai-assistant',
-        url: `${req.protocol}://${req.get('host')}/wordpress-ai-assistant`
-      }
-    ]
-  });
+app.use((error, req, res, next) => {
+  console.error(error);
+  res.status(500).json({ error: 'Internal server error' });
 });
 
 app.listen(PORT, () => {

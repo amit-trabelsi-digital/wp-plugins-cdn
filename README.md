@@ -1,38 +1,34 @@
-# Amit Trabelsi - WordPress Plugins Distribution Server
+# AT Private WordPress Plugin CDN
 
-שרת הפצה מרכזי פרטי לפלאגיני WordPress.
+Central distribution server for every first-party AT WordPress plugin.
 
-**Owner:** Amit Trabelsi
-**Contact:** amit@trabel.si
-**Website:** https://amit-trabelsi.co.il
-**CDN URL:** https://updates.amiteam.io
+Each plugin is published as two files under `public/<plugin-slug>/`:
 
-## מבנה תיקיות
-
-```
-public/
-├── at-agency-sites-manager/
-│   ├── at-agency-sites-manager.zip
-│   └── plugin-info.json
-└── wordpress-ai-assistant/
-    ├── wordpress-ai-assistant.zip
-    └── plugin-info.json
+```text
+public/<plugin-slug>/
+├── plugin-info.json
+└── <plugin-slug>.zip
 ```
 
-## API Endpoints
+The Railway service serves those files through a stable public interface:
 
-- `GET /plugins` - רשימת כל הפלאגינים
-- `GET /:plugin/info.json` - מידע על פלאגין
-- `GET /:plugin/download` - הורדת קובץ ZIP
-- `GET /health` - בדיקת תקינות
+- `GET /health`
+- `GET /plugins`
+- `GET /<plugin-slug>/plugin-info.json`
+- `GET /<plugin-slug>/download`
 
-## שימוש
+`plugin-info.json` is the canonical release manifest. Its `package` field must always point to the CDN download endpoint, not to a GitHub release.
 
-הפלאגינים בוורדפרס צריכים להצביע ל:
-```
-Update URI: https://updates.amiteam.io/plugin-name/plugin-info.json
-```
+## Publishing model
 
-דוגמה:
-- AT Agency Sites Manager: https://updates.amiteam.io/at-agency-sites-manager/plugin-info.json
-- WordPress AI Assistant: https://updates.amiteam.io/wordpress-ai-assistant/plugin-info.json
+Plugin repositories publish only from a semantic-version tag (`vX.Y.Z`). The release workflow must:
+
+1. Validate that the tag matches the plugin header version.
+2. Build a ZIP whose top-level directory is the plugin slug.
+3. Generate the canonical manifest.
+4. Commit the ZIP and manifest to this repository.
+5. Verify the public manifest version and ZIP endpoint after Railway deploys.
+
+The plugin repository needs the `AT_CDN_REPO_TOKEN` Actions secret. Use a fine-grained GitHub token limited to this repository with `Contents: Read and write`.
+
+See [PUBLISHING.md](PUBLISHING.md) for the complete contract and release checklist.

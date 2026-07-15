@@ -1,27 +1,28 @@
 {
-  "at-agency-sites-manager/at-agency-sites-manager.php": {
-    "name": "AT Agency Sites Manager",
-    "slug": "at-agency-sites-manager",
-    "version": "0.12.0",
-    "author": "Amit Trabelsi",
-    "author_profile": "https://atd.digital",
-    "requires": "5.2",
-    "tested": "6.7",
-    "requires_php": "7.0",
-    "last_updated": "2026-02-15 12:00:00",
-    "package": "https://github.com/amit-trabelsi-digital/at-agency-sites-manager-wp-plugin/releases/download/v0.12.0/at-agency-sites-manager.zip",
-    "download_url": "https://github.com/amit-trabelsi-digital/at-agency-sites-manager-wp-plugin/releases/download/v0.12.0/at-agency-sites-manager.zip",
-    "sections": {
-      "description": "מנהל האתרים של סוכנות AT עם מיתוג מותאם אישית, ניטור וניהול אתרים",
-      "changelog": "גרסה 0.12.0 - ראה את רשימת השינויים המלאה ב-GitHub"
-    },
-    "banners": {
-      "low": "",
-      "high": ""
-    },
-    "icons": {
-      "1x": "",
-      "2x": ""
-    }
+  "schema_version": 1,
+  "name": "AT Agency Sites Manager",
+  "slug": "at-agency-sites-manager",
+  "plugin_file": "at-agency-sites-manager-plugin/at-agency-sites-manager.php",
+  "version": "0.21.1",
+  "author": "Amit Trabelsi",
+  "author_profile": "https://atd.digital",
+  "homepage": "https://github.com/amit-trabelsi-digital/at-sites-manager-wp-plugin",
+  "requires": "5.8",
+  "tested": "6.8",
+  "requires_php": "7.0",
+  "last_updated": "2026-07-15 00:00:00",
+  "package": "https://updates.amiteam.io/at-agency-sites-manager/download",
+  "download_url": "https://updates.amiteam.io/at-agency-sites-manager/download",
+  "sections": {
+    "description": "תוסף לניהול אתרים של סוכנות עם מיתוג מותאם אישית, ניטור וניהול אתרים.",
+    "changelog": "<h4>0.21.1</h4><ul><li>הוספת עדכון אוטומטי דרך ה-CDN הפרטי של AT.</li></ul>"
+  },
+  "banners": {
+    "low": "",
+    "high": ""
+  },
+  "icons": {
+    "1x": "",
+    "2x": ""
   }
 }
