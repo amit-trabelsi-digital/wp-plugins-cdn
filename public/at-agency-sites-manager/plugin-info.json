@@ -3,26 +3,20 @@
   "name": "AT Agency Sites Manager",
   "slug": "at-agency-sites-manager",
   "plugin_file": "at-agency-sites-manager-plugin/at-agency-sites-manager.php",
-  "version": "0.21.1",
+  "version": "0.21.2",
   "author": "Amit Trabelsi",
   "author_profile": "https://atd.digital",
   "homepage": "https://github.com/amit-trabelsi-digital/at-sites-manager-wp-plugin",
   "requires": "5.8",
   "tested": "6.8",
   "requires_php": "7.0",
-  "last_updated": "2026-07-15 00:00:00",
+  "last_updated": "2026-07-15 13:52:26",
   "package": "https://updates.amiteam.io/at-agency-sites-manager/download",
   "download_url": "https://updates.amiteam.io/at-agency-sites-manager/download",
   "sections": {
-    "description": "תוסף לניהול אתרים של סוכנות עם מיתוג מותאם אישית, ניטור וניהול אתרים.",
-    "changelog": "<h4>0.21.1</h4><ul><li>הוספת עדכון אוטומטי דרך ה-CDN הפרטי של AT.</li></ul>"
+    "description": "מנהל האתרים של סוכנות AT עם מיתוג מותאם אישית, ניטור וניהול אתרים.",
+    "changelog": "<h4>0.21.2</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
   },
-  "banners": {
-    "low": "",
-    "high": ""
-  },
-  "icons": {
-    "1x": "",
-    "2x": ""
-  }
+  "banners": { "low": "", "high": "" },
+  "icons": { "1x": "", "2x": "" }
 }
