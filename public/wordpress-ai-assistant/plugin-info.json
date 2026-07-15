@@ -10,19 +10,13 @@
   "requires": "5.8",
   "tested": "6.8",
   "requires_php": "7.4",
-  "last_updated": "2026-07-15 00:00:00",
+  "last_updated": "2026-07-15 13:52:21",
   "package": "https://updates.amiteam.io/wordpress-ai-assistant/download",
   "download_url": "https://updates.amiteam.io/wordpress-ai-assistant/download",
   "sections": {
     "description": "תוסף WordPress מתקדם המספק יכולות בינה מלאכותית לשיפור תהליכי יצירת תוכן, נגישות וחוויית המשתמש.",
-    "changelog": "<h4>1.8.3</h4><ul><li>הוספת עדכון אוטומטי דרך ה-CDN הפרטי של AT.</li></ul>"
+    "changelog": "<h4>1.8.3</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
   },
-  "banners": {
-    "low": "",
-    "high": ""
-  },
-  "icons": {
-    "1x": "",
-    "2x": ""
-  }
+  "banners": { "low": "", "high": "" },
+  "icons": { "1x": "", "2x": "" }
 }
