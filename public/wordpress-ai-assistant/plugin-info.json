@@ -3,19 +3,19 @@
   "name": "WordPress AI Assistant",
   "slug": "wordpress-ai-assistant",
   "plugin_file": "wordpress-ai-assistant/wordpress-ai-assistant.php",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "author": "Amit Trabelsi",
   "author_profile": "https://amit-trabelsi.co.il",
   "homepage": "https://github.com/athbss/wp-ai-bro",
   "requires": "5.8",
   "tested": "7.0.2",
   "requires_php": "7.4",
-  "last_updated": "2026-07-20 03:06:27",
+  "last_updated": "2026-07-20 10:00:54",
   "package": "https://updates.amiteam.io/wordpress-ai-assistant/download",
   "download_url": "https://updates.amiteam.io/wordpress-ai-assistant/download",
   "sections": {
     "description": "תוסף WordPress מתקדם המספק יכולות בינה מלאכותית לשיפור תהליכי יצירת תוכן, נגישות וחוויית המשתמש.",
-    "changelog": "<h4>1.9.0</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
+    "changelog": "<h4>1.9.1</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
   },
   "banners": { "low": "", "high": "" },
   "icons": { "1x": "", "2x": "" }
