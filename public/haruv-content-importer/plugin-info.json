@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "Haruv Content Importer",
+  "slug": "haruv-content-importer",
+  "plugin_file": "haruv-content-importer/haruv-content-importer.php",
+  "version": "0.4.1",
+  "author": "Amit Trabelsi",
+  "author_profile": "https://atd.digital",
+  "homepage": "https://github.com/amit-trabelsi-digital/haruv-content-importer",
+  "requires": "6.0",
+  "tested": "6.9",
+  "requires_php": "7.4",
+  "last_updated": "2026-07-27 09:03:09",
+  "package": "https://updates.amiteam.io/haruv-content-importer/download",
+  "download_url": "https://updates.amiteam.io/haruv-content-importer/download",
+  "sections": {
+    "description": "ייבוא תוכן מהאתר הישן של חרוב אל האתר החדש מתוך קובצי JSON עצמאיים — כולל המרת Elementor לבלוקים, ייבוא מדיה, שדות ACF וטקסונומיות.",
+    "changelog": "<h4>0.4.1</h4><ul><li>מספר הגרסה של התוסף מוצג ברכיב \"גרסאות\" בסרגל הניהול (דרך הפילטר `at_agency_manager_version_items` של AT Agency Manager — בלי לגעת בתוסף עצמו).</li></li></ul>"
+  },
+  "banners": {
+    "low": "",
+    "high": ""
+  },
+  "icons": {
+    "1x": "",
+    "2x": ""
+  }
+}
