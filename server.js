@@ -8,7 +8,22 @@ const PORT = process.env.PORT || 3000;
 const PLUGINS_ROOT = path.join(__dirname, 'public');
 
 app.disable('x-powered-by');
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'HEAD'],
+  allowedHeaders: ['Accept', 'Cache-Control', 'If-None-Match', 'If-Modified-Since'],
+  maxAge: 86400,
+}));
+app.use((req, res, next) => {
+  res.set({
+    'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'; sandbox",
+    'Cross-Origin-Resource-Policy': 'cross-origin',
+    'Referrer-Policy': 'no-referrer',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+  });
+  next();
+});
 
 function isValidSlug(slug) {
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug);
@@ -49,8 +64,28 @@ function normalizeManifest(manifest) {
   return { ...manifest[pluginFile], plugin_file: pluginFile };
 }
 
+function validateManifest(slug, rawManifest) {
+  const manifest = normalizeManifest(rawManifest);
+  const expectedPackage = `https://updates.amiteam.io/${slug}/download`;
+
+  if (!manifest ||
+      manifest.schema_version !== 1 ||
+      manifest.slug !== slug ||
+      !/^[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?$/.test(manifest.version || '') ||
+      !/^[a-z0-9-]+\/[a-z0-9-]+\.php$/.test(manifest.plugin_file || '') ||
+      manifest.package !== expectedPackage ||
+      manifest.download_url !== expectedPackage) {
+    return null;
+  }
+
+  return manifest;
+}
+
 async function sendPluginManifest(req, res) {
-  const manifest = await getPluginManifest(req.params.plugin);
+  const manifest = validateManifest(
+    req.params.plugin,
+    await getPluginManifest(req.params.plugin),
+  );
   if (!manifest) {
     return res.status(404).json({ error: 'Plugin manifest not found' });
   }
@@ -64,7 +99,7 @@ async function listPlugins() {
   const plugins = await Promise.all(entries
     .filter((entry) => entry.isDirectory() && isValidSlug(entry.name))
     .map(async (entry) => {
-      const manifest = normalizeManifest(await getPluginManifest(entry.name));
+      const manifest = validateManifest(entry.name, await getPluginManifest(entry.name));
       if (!manifest) {
         return null;
       }
@@ -117,7 +152,7 @@ app.get('/:plugin/plugin-info.json', sendPluginManifest);
 
 app.get('/:plugin/download', async (req, res) => {
   const slug = req.params.plugin;
-  const manifest = await getPluginManifest(slug);
+  const manifest = validateManifest(slug, await getPluginManifest(slug));
   const zipPath = path.join(pluginDirectory(slug), `${slug}.zip`);
 
   if (!manifest || !isValidSlug(slug)) {
