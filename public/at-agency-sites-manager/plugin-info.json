@@ -3,19 +3,19 @@
   "name": "AT Agency Sites Manager",
   "slug": "at-agency-sites-manager",
   "plugin_file": "at-agency-sites-manager-plugin/at-agency-sites-manager.php",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "author": "Amit Trabelsi",
   "author_profile": "https://atd.digital",
   "homepage": "https://github.com/amit-trabelsi-digital/at-sites-manager-wp-plugin",
   "requires": "6.4",
   "tested": "6.9",
   "requires_php": "8.1",
-  "last_updated": "2026-07-28 10:01:37",
+  "last_updated": "2026-07-28 13:10:16",
   "package": "https://updates.amiteam.io/at-agency-sites-manager/download",
   "download_url": "https://updates.amiteam.io/at-agency-sites-manager/download",
   "sections": {
     "description": "מנהל האתרים של סוכנות AT עם מיתוג מותאם אישית, ניטור וניהול אתרים.",
-    "changelog": "<h4>1.0.0-beta.2</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
+    "changelog": "<h4>1.0.0-beta.3</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
   },
   "banners": { "low": "", "high": "" },
   "icons": { "1x": "", "2x": "" }
