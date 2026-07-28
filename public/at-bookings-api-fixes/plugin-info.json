@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "name": "AT Bookings API Fixes",
+  "slug": "at-bookings-api-fixes",
+  "plugin_file": "at-bookings-api-fixes/at-bookings-api-fixes.php",
+  "version": "4.2.5",
+  "author": "Amit Trabelsi",
+  "author_profile": "https://amit-trabelsi.co.il",
+  "homepage": "https://github.com/amit-trabelsi-digital/at-wp-booking-woo-zoho",
+  "requires": "5.0",
+  "tested": "6.6",
+  "requires_php": "7.4",
+  "last_updated": "2026-07-28 12:00:00",
+  "package": "https://updates.amiteam.io/at-bookings-api-fixes/download",
+  "download_url": "https://updates.amiteam.io/at-bookings-api-fixes/download",
+  "sections": {
+    "description": "שיפורי ביצועים, ניהול הזמנות ואינטגרציית Zoho לאתרי WooCommerce Bookings.",
+    "changelog": "<h4>4.2.5</h4><ul><li>חיווי ל־AT Control Plane</li><li>ערוץ עדכונים פרטי דרך updates.amiteam.io</li></ul>"
+  }
+}
