@@ -3,19 +3,19 @@
   "name": "Haruv Suppliers Management",
   "slug": "haruv-suppliers",
   "plugin_file": "haruv-suppliers/haruv-suppliers.php",
-  "version": "1.6.9",
+  "version": "1.7.0",
   "author": "Amit Trabelsi",
   "author_profile": "https://atd.digital",
   "homepage": "https://github.com/amit-trabelsi-digital/haruv-suppliers-private",
   "requires": "5.0",
   "tested": "6.8",
   "requires_php": "7.4",
-  "last_updated": "2026-07-30 16:49:14",
-  "package": "https://updates.amiteam.io/haruv-suppliers/download",
-  "download_url": "https://updates.amiteam.io/haruv-suppliers/download",
+  "last_updated": "2026-07-30 17:06:56",
+  "package": "https://raw.githubusercontent.com/amit-trabelsi-digital/wp-plugins-cdn/main/public/haruv-suppliers/haruv-suppliers.zip",
+  "download_url": "https://raw.githubusercontent.com/amit-trabelsi-digital/wp-plugins-cdn/main/public/haruv-suppliers/haruv-suppliers.zip",
   "sections": {
     "description": "מערכת ניהול ספקים עבור פלטפורמת חרוב — אולמות, הסעדה, מלונות, בתי דפוס, צלמים, סדנאות ואדמיניסטרציה.",
-    "changelog": "<h4>1.6.9</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
+    "changelog": "<h4>1.7.0</h4><p>ראה את רשימת השינויים המלאה ב-GitHub.</p>"
   },
   "banners": { "low": "", "high": "" },
   "icons": { "1x": "", "2x": "" }
